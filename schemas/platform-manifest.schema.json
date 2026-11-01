@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.f7en.net/b3eq/upm/platform-manifest/0.1.0/schema.json",
+  "title": "b3Ɛq Unified Platform Manifest",
+  "description": "Draft portable manifest describing a platform identity, architecture, capabilities, contracts, dependencies, deployment, security, conformance, release and operational requirements.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "architecture", "capabilities", "contracts", "dependencies", "deploymentProfiles", "security", "conformance"],
+  "properties": {
+    "apiVersion": {"type":"string","const":"upm.b3eq/v1alpha1"},
+    "kind": {"type":"string","const":"PlatformManifest"},
+    "metadata": {
+      "type":"object","additionalProperties":false,
+      "required":["name","slug","version","owner","lifecycle"],
+      "properties":{
+        "name":{"type":"string","minLength":1},
+        "slug":{"type":"string","pattern":"^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+        "version":{"type":"string","pattern":"^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?$"},
+        "owner":{"type":"string","minLength":1},
+        "description":{"type":"string"},
+        "lifecycle":{"enum":["draft","review","approved","published","deprecated","withdrawn"]},
+        "sourceRevision":{"type":"string"},
+        "maintainers":{"type":"array","items":{"type":"string"}},
+        "labels":{"type":"object","additionalProperties":{"type":"string"}}
+      }
+    },
+    "architecture":{
+      "type":"object","required":["ebmaProfile","components"],"additionalProperties":false,
+      "properties":{
+        "ebmaProfile":{"type":"object","required":["specification","profile"],"properties":{"specification":{"type":"string"},"profile":{"type":"string"},"mappings":{"type":"array","items":{"type":"object","required":["requirement","implementation","status"],"properties":{"requirement":{"type":"string"},"implementation":{"type":"string"},"status":{"enum":["planned","implemented","verified","exception"]},"evidence":{"type":"array","items":{"type":"string"}}},"additionalProperties":false}}},"additionalProperties":false},
+        "components":{"type":"array","items":{"$ref":"#/$defs/component"}},
+        "deploymentUnits":{"type":"array","items":{"type":"object","required":["name","componentRefs"],"properties":{"name":{"type":"string"},"componentRefs":{"type":"array","items":{"type":"string"}}},"additionalProperties":false}}
+      }
+    },
+    "capabilities":{"type":"array","items":{"type":"object","required":["id","name","owner","status"],"properties":{"id":{"type":"string"},"name":{"type":"string"},"owner":{"type":"string"},"status":{"enum":["planned","designed","implemented","verified","deprecated"]},"description":{"type":"string"}},"additionalProperties":false}},
+    "contracts":{"type":"array","items":{"type":"object","required":["id","type","owner","version"],"properties":{"id":{"type":"string"},"type":{"enum":["api","event","schema","sdk","cli","file"]},"owner":{"type":"string"},"version":{"type":"string"},"producer":{"type":"string"},"consumers":{"type":"array","items":{"type":"string"}},"compatibility":{"enum":["strict","backward-compatible","versioned","unspecified"]},"location":{"type":"string"}},"additionalProperties":false}},
+    "dependencies":{"type":"array","items":{"type":"object","required":["name","versionConstraint","kind"],"properties":{"name":{"type":"string"},"versionConstraint":{"type":"string"},"kind":{"enum":["runtime","build","development","service","platform"]},"optional":{"type":"boolean","default":false}},"additionalProperties":false}},
+    "deploymentProfiles":{"type":"array","items":{"type":"object","required":["name","environment"],"properties":{"name":{"type":"string"},"environment":{"enum":["development","test","staging","production","disaster-recovery"]},"regions":{"type":"array","items":{"type":"string"}},"topology":{"type":"string"},"resourceRequirements":{"type":"object"},"configurationRefs":{"type":"array","items":{"type":"string"}}},"additionalProperties":false}},
+    "configuration":{"type":"object","properties":{"values":{"type":"object"},"secretRefs":{"type":"array","items":{"type":"object","required":["name","provider","reference"],"properties":{"name":{"type":"string"},"provider":{"type":"string"},"reference":{"type":"string"},"accessPolicy":{"type":"string"}},"additionalProperties":false}}},"additionalProperties":false},
+    "security":{"type":"object","required":["identity","dataClassification"],"properties":{"identity":{"type":"string"},"authorization":{"type":"string"},"dataClassification":{"type":"string"},"privacyRequirements":{"type":"array","items":{"type":"string"}},"policyRefs":{"type":"array","items":{"type":"string"}}},"additionalProperties":false},
+    "conformance":{"type":"object","required":["gates"],"properties":{"gates":{"type":"array","items":{"type":"object","required":["id","status"],"properties":{"id":{"type":"string"},"status":{"enum":["not-assessed","planned","passing","failing","exception"]},"evidenceRefs":{"type":"array","items":{"type":"string"}}},"additionalProperties":false}}},"additionalProperties":false},
+    "release":{"type":"object","properties":{"artifacts":{"type":"array","items":{"type":"object","required":["name","digest"],"properties":{"name":{"type":"string"},"digest":{"type":"string"},"uri":{"type":"string","format":"uri"}},"additionalProperties":false}},"provenanceRef":{"type":"string"},"signatureRef":{"type":"string"}},"additionalProperties":false},
+    "operations":{"type":"object","properties":{"healthChecks":{"type":"array","items":{"type":"string"}},"slos":{"type":"array","items":{"type":"string"}},"backupPolicy":{"type":"string"},"recoveryObjectives":{"type":"object"},"observabilityRefs":{"type":"array","items":{"type":"string"}}},"additionalProperties":false},
+    "extensions":{"type":"object","additionalProperties":{"type":"object"}}
+  },
+  "$defs":{
+    "component":{"type":"object","required":["id","name","owner","kind"],"properties":{"id":{"type":"string"},"name":{"type":"string"},"owner":{"type":"string"},"kind":{"enum":["service","module","library","agent","workflow","data-store","external-system","infrastructure"]},"description":{"type":"string"},"dependencies":{"type":"array","items":{"type":"string"}},"contracts":{"type":"array","items":{"type":"string"}}},"additionalProperties":false}
+  }
+}
