@@ -1,0 +1,42 @@
+# b3Ɛq UPM™ — Ideation
+
+## Core idea
+
+Make every b3Ɛq platform describable as a portable, machine-readable, versioned manifest. The manifest becomes a reliable contract between architecture intent, platform composition, compiler tooling, deployment automation and conformance evidence.
+
+## Design principles
+
+- EBMA remains normative; UPM remains declarative.
+- Platform identity and manifest schema version are distinct.
+- Published manifest versions are immutable.
+- Every component and capability has an owner.
+- Contracts and dependencies are explicit and versioned.
+- Secret values never enter manifests.
+- Structural validation is distinct from semantic validation.
+- Evidence is referenced with provenance and integrity metadata.
+- Compiler outputs are reproducible and traceable to inputs.
+
+## Candidate future capabilities
+
+- Human-friendly authoring and manifest editor.
+- Schema-aware command-line validation.
+- Semantic dependency and compatibility engine.
+- Signed manifest registry.
+- Manifest diff and upgrade assistant.
+- UAPC compiler integration.
+- EBMA conformance evidence mapping.
+- Software supply-chain provenance and attestation verification.
+
+## Open questions
+
+- Canonical JSON schema publication and versioning process.
+- Whether YAML is supported as an authoring format with canonical JSON normalization.
+- Registry storage, authentication and immutable artifact retention.
+- Signature format and key-management authority.
+- How to represent optional capabilities and feature negotiation.
+- How to encode multi-tenant and multi-region deployment topologies.
+- How to model inherited environment profiles without ambiguous overrides.
+
+## Guardrail
+
+Do not expand UPM into project/task management. Keep the recovered charter authoritative unless a formal ADR establishes a separate product.
