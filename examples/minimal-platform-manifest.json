@@ -1,0 +1,57 @@
+{
+  "apiVersion": "upm.b3eq/v1alpha1",
+  "kind": "PlatformManifest",
+  "metadata": {
+    "name": "Example b3Ɛq Platform",
+    "slug": "example-platform",
+    "version": "0.1.0",
+    "owner": "Example Platform Team",
+    "description": "Illustrative minimal platform manifest; not a real deployment.",
+    "lifecycle": "draft",
+    "sourceRevision": "replace-with-immutable-commit"
+  },
+  "architecture": {
+    "ebmaProfile": {
+      "specification": "b3Ɛq EBMA™",
+      "profile": "replace-with-approved-profile"
+    },
+    "components": [
+      {
+        "id": "example-api",
+        "name": "Example API",
+        "owner": "Example Platform Team",
+        "kind": "service",
+        "description": "Illustrative component only."
+      }
+    ]
+  },
+  "capabilities": [
+    {
+      "id": "example.capability",
+      "name": "Example capability",
+      "owner": "Example Platform Team",
+      "status": "planned"
+    }
+  ],
+  "contracts": [],
+  "dependencies": [],
+  "deploymentProfiles": [
+    {
+      "name": "local-development",
+      "environment": "development"
+    }
+  ],
+  "security": {
+    "identity": "Define workload and user identity provider",
+    "dataClassification": "internal"
+  },
+  "conformance": {
+    "gates": [
+      {
+        "id": "ebma-profile-review",
+        "status": "not-assessed",
+        "evidenceRefs": []
+      }
+    ]
+  }
+}
