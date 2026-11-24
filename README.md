@@ -1,4 +1,4 @@
-# b3Ɛq UPM™ — Unified Platform Manifest
+# b3Ɛq::UPM™ — Unified Platform Manifest
 
 **Repository:** `Devf7en/b3-q-UPM`  
 **Portfolio ID:** `B3EQ-PORT-0014`  
